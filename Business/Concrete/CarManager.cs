@@ -5,6 +5,7 @@ using DataAccess.Concrete.InMemory;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
@@ -17,10 +18,52 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public List<Car> GetAll()
+        public void Add(Car entity)
         {
+            if ((entity.CarDescription).Length>2 && entity.DailyPrice>0)
+            {
+                _carDal.Add(entity);
+            }
+            else
+            {
+                if ((entity.CarDescription).Length<=2 && entity.DailyPrice<=0)
+                {
+                    Console.WriteLine("Aciqlama bolumunu 2 isareden boyuk olmalidir ve gunluk qiymet 0 dan ferqli olmalidir");
+                }
+                else
+                {
+                    if ((entity.CarDescription).Length<=2)
+                    {
+                        Console.WriteLine("Aciqlama bolumunu 2 isareden boyuk olmalidir");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Gunluk qiymet 0 dan boyuk olmalidir");
+                    }
+                }
+            }
+        }
 
+        public Car Get(Expression<Func<Car, bool>> filter)
+        {
+            return _carDal.Get(filter);
+        }
+
+        
+
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        {
             return _carDal.GetAll();
+        }
+
+        public List<Car> GetCarsByBrandId(int brandId)
+        {
+            return _carDal.GetAll(c => c.BrandId == brandId);
+        }
+
+        public List<Car> GetCarsByColorId(int colorId)
+        {
+            return _carDal.GetAll(c => c.ColorId == colorId);
         }
     }
 }
