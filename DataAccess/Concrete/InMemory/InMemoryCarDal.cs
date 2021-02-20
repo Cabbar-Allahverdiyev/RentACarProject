@@ -53,6 +53,11 @@ namespace DataAccess.Concrete.InMemory
             return _cars.Where(c=>c.BrandId==brandId).ToList();
         }
 
+        public void GetCarsByBrandId(int brandId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Car car)
         {
             Car carToUpdate = _cars.SingleOrDefault(c=>c.CarId==car.CarId);
