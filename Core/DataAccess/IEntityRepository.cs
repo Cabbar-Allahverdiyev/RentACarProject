@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace DataAccess.Abstract
+namespace Core.DataAccess
 {
     public interface IEntityRepository<T> where T :class, new()
     {
@@ -12,6 +12,7 @@ namespace DataAccess.Abstract
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
+      
 
     }
 }

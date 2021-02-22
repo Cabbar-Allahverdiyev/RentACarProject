@@ -1,5 +1,7 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,82 +11,72 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, ReCapProjectContext>, ICarDal
     {
-        public void Add(Car entity)
+        public List<CarDetailDto> GetCarDetail()
         {
             using (ReCapProjectContext context=new ReCapProjectContext())
             {
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
+                var result = from c in context.Cars
+                                join b in context.Brands on c.BrandId equals b.BrandId
+                                join m in context.Models on b.BrandId equals m.BrandId
+                                join color in context.Colors on c.ColorId equals color.ColorId
+                                select new CarDetailDto 
+                                { 
+                                    CarId=c.CarId,
+                                    BrandName=b.BrandName,
+                                    ModelName=m.ModelName,
+                                    ColorName=color.ColorName,
+                                    DailyPrice=c.DailyPrice
+                                };
+                return result.ToList();
+                              
             }
+
         }
 
-        public void Delete(Car entity)
-        {
-            using (ReCapProjectContext context=new ReCapProjectContext())
-            {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
-            }
-        }
+        //public List<CarDetailDto> GetCarsByBrandId(int brandId)
+        //{
+        //    using (ReCapProjectContext context = new ReCapProjectContext())
+        //    {
 
-        public Car Get(Expression<Func<Car, bool>> filter)
-        {
-            using (ReCapProjectContext context=new ReCapProjectContext())
-            {
-                return context.Set<Car>().SingleOrDefault(filter);
-            }
-        }
+        //        var result = from c in context.Cars
+        //                     join b in context.Brands on c.BrandId equals b.BrandId
+        //                     join m in context.Models on b.BrandId equals m.BrandId
+        //                     where (c.BrandId == brandId)
+        //                     orderby c.DailyPrice descending
+        //                     select new CarDetailDto 
+        //                     { 
+        //                         BrandName = b.BrandName,
+        //                         CarId = c.CarId, 
+        //                         ModelName = m.ModelName,
+        //                         DailyPrice = c.DailyPrice 
+        //                     };
 
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
-        {
-            using (ReCapProjectContext context=new ReCapProjectContext())
-            {
-                return filter == null
-                    ? context.Set<Car>().ToList()
-                    : context.Set<Car>().Where(filter).ToList();
-            }
-        }
 
-        public void GetCarsByBrandId(int brandId)
-        {
-            using (ReCapProjectContext context=new ReCapProjectContext())
-            {
 
-                var result  = from c in context.Cars
-                                            join b in context.Brands on c.BrandId equals b.BrandId
-                                            join m in context.Models on b.BrandId equals m.BrandId
-                                            where (c.BrandId == brandId) 
-                                            orderby c.DailyPrice descending 
-                                            select new CarsDto { BrandName=b.BrandName,CarId=c.CarId,ModelName=m.ModelName,DailyPrice=c.DailyPrice} ;
-               
-                                          
-                                          
-                foreach (var c in result)
-                {
-                    Console.WriteLine(c.CarId+" "+c.BrandName+" "+c.ModelName+" "+c.DailyPrice);
-                }
-            }
-        }
+        //        return result.ToList();
+        //    }
+        //}
 
-        public void Update(Car entity)
-        {
-            using (ReCapProjectContext context=new ReCapProjectContext())
-            {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
-            }
-        }
+        //public List<CarDetailDto> GetCarsByColorId(int colorId)
+        //{
+        //    using (ReCapProjectContext context = new ReCapProjectContext())
+        //    {
+        //        var result = from c in context.Cars
+        //                     join m in context.Models on c.BrandId equals m.BrandId
+        //                     join b in context.Brands on m.BrandId equals b.BrandId
+        //                     join color in context.Colors on c.ColorId equals color.ColorId
+        //                     where (color.ColorId == colorId)
+        //                     select new CarDetailDto { BrandName = b.BrandName, CarId = c.CarId, ModelName = m.ModelName, DailyPrice = c.DailyPrice, ColorName = color.ColorName };
+        //        return result.ToList();
+        //    }
+        //}
+
+       
+
+      
     }
-    public class CarsDto
-    {
-        public int CarId { get; set; }
-        public string BrandName { get; set; }
-        public string ModelName { get; set; }
-        public decimal DailyPrice { get; set; }
-    }
+
+
 }

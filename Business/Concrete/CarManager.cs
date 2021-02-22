@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq.Expressions;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -44,21 +45,41 @@ namespace Business.Concrete
             }
         }
 
-        public Car Get(Expression<Func<Car, bool>> filter)
+        public void Delete(Car entity)
         {
-            return _carDal.Get(filter);
+            _carDal.Delete(entity);
         }
 
-        
+       
 
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        public List<Car> GetAll()
         {
             return _carDal.GetAll();
         }
 
-        public void GetCarsByBrandId(int brandId)
+        public List<Car> GetbyDailyPrice(decimal min, decimal max)
         {
-            _carDal.GetCarsByBrandId(brandId);
+            return _carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max);
+        }
+
+        public List<CarDetailDto> GetCarDetail()
+        {
+           return _carDal.GetCarDetail();
+        }
+
+        public List<Car> GetCarsByBrandId(int id)
+        {
+            return _carDal.GetAll(c => c.BrandId == id);
+        }
+
+        public List<Car> GetCarsByColorId(int colorId)
+        {
+            return _carDal.GetAll(c => c.ColorId == colorId);
+        }
+
+        public void Update(Car entity)
+        {
+             _carDal.Update(entity);
         }
     }
 }
