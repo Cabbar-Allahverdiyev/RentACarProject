@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq.Expressions;
 using Entities.DTOs;
+using Core.Utilities;
+using Business.Constants;
 
 namespace Business.Concrete
 {
@@ -19,67 +21,85 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car entity)
+        public IResult Add(Car entity)
         {
             if ((entity.CarDescription).Length>2 && entity.DailyPrice>0)
             {
+                
                 _carDal.Add(entity);
+                return new SuccessResult(Messages.CarAdded);
             }
             else
             {
                 if ((entity.CarDescription).Length<=2 && entity.DailyPrice<=0)
                 {
-                    Console.WriteLine("Aciqlama bolumunu 2 isareden boyuk olmalidir ve gunluk qiymet 0 dan ferqli olmalidir");
+                    return new SuccessResult(Messages.CarDesInvalidUnitInvalid);
                 }
                 else
                 {
                     if ((entity.CarDescription).Length<=2)
                     {
-                        Console.WriteLine("Aciqlama bolumunu 2 isareden boyuk olmalidir");
+                        return new SuccessResult(Messages.CarDesInvalid);
                     }
                     else
                     {
-                        Console.WriteLine("Gunluk qiymet 0 dan boyuk olmalidir");
+                        return new ErrorResult(Messages.CarUnitPriceInvalid);
                     }
                 }
             }
         }
 
-        public void Delete(Car entity)
+        public IResult Delete(Car entity)
         {
+            
             _carDal.Delete(entity);
+            return new SuccessResult(Messages.CarDeleted);
         }
 
        
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.CarsListed);
         }
 
-        public List<Car> GetbyDailyPrice(decimal min, decimal max)
+        public IDataResult<List<Car>> GetbyDailyPrice(decimal min, decimal max)
         {
-            return _carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max);
+            
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max),Messages.CarsByDailyPrice);
         }
 
-        public List<CarDetailDto> GetCarDetail()
+        public IDataResult<Car> GetById(int carId)
         {
-           return _carDal.GetCarDetail();
+            
+            return new SuccessDataResult<Car>(_carDal.Get(c=>c.CarId==carId),Messages.CarById);
         }
 
-        public List<Car> GetCarsByBrandId(int id)
+        public IDataResult<List<CarDetailDto>> GetCarDetail()
         {
-            return _carDal.GetAll(c => c.BrandId == id);
+            
+           return new  SuccessDataResult<List<CarDetailDto>>( _carDal.GetCarDetail(),Messages.CarDetailsListed);
         }
 
-        public List<Car> GetCarsByColorId(int colorId)
+        public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            return _carDal.GetAll(c => c.ColorId == colorId);
+           
+
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id),Messages.CarByBrandId);
         }
 
-        public void Update(Car entity)
+        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
-             _carDal.Update(entity);
+           
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId),Messages.CarByColorId);
+        }
+
+        public IResult Update(Car entity)
+        {
+           
+            _carDal.Update(entity);
+            return new SuccessResult(Messages.CarUptaded);
         }
     }
 }

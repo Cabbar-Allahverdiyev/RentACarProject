@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -9,26 +12,42 @@ namespace Business.Concrete
 {
     public class ModelManager : IModelService
     {
-        IModelService _modelService;
-        public void Add(Color color)
+        IModelDal _modelDal;
+
+        public ModelManager(IModelDal modelDal)
         {
-            _modelService.Add(color);
+            _modelDal = modelDal;
         }
 
-        public void Delete(Color color)
+        public IResult Add(Model model)
         {
-            _modelService.Delete(color);
+          
+            _modelDal.Add(model);
+
+            return new SuccessResult(Messages.ModelAdded);
+        }
+
+        public IResult Delete(Model model)
+        {
+            
+            _modelDal.Delete(model);
+
+            return new SuccessResult(Messages.ModelDeleted);
+        }
+
+        public IDataResult<List<Model>> GetAll()
+        {
+            
+            return new SuccessDataResult<List<Model>>(_modelDal.GetAll(), Messages.BrandsListed);
 
         }
 
-        public List<Model> GetAll()
-        {
-            return _modelService.GetAll();
-        }
 
-        public void Update(Color color)
+        public IResult Update(Model model)
         {
-            _modelService.Update(color);
+            
+            _modelDal.Update(model);
+            return new SuccessResult(Messages.ModelUptaded);
         }
     }
 }

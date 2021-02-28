@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -9,27 +12,42 @@ namespace Business.Concrete
 {
     public class ColorManager : IColorService
     {
-        IColorService _colorService;
-        public void Add(Color color)
+        IColorDal _colorDal;
+
+        public ColorManager(IColorDal colorDal)
         {
-            _colorService.Add(color);
+            _colorDal = colorDal;
         }
 
-        public void Delete(Color color)
+        public IResult Add(Color color)
         {
-            _colorService.Delete(color);
+            
+            _colorDal.Add(color);
+
+            return new SuccessResult(Messages.BrandAdded);
+        }
+
+        public IResult Delete(Color color)
+        {
+           
+            _colorDal.Delete(color);
+
+            return new SuccessResult(Messages.ColorDeleted);
+        }
+
+        public IDataResult<List<Color>> GetAll()
+        {
+            
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.ColorsListed);
 
         }
 
-        public List<Color> GetAll()
-        {
-            return _colorService.GetAll();
-        }
 
-        public void Update(Color color)
+        public IResult Update(Color color)
         {
-            _colorService.Update(color);
-
+            
+            _colorDal.Update(color);
+            return new SuccessResult(Messages.BrandUptaded);
         }
     }
 }
