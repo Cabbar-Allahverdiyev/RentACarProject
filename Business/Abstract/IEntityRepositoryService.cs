@@ -6,6 +6,7 @@ using System.Text;
 namespace Business.Abstract
 {
     public interface IEntityRepositoryService<T> where T:class,new()
+        //IBrand,ICar,IColor,IModel
     {
         //List<T> GetAll(Expression<Func<T, bool>> filter = null);
         //T Get(Expression<Func<T, bool>>filter);

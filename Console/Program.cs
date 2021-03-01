@@ -13,7 +13,20 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             CarManager carManager = new CarManager(new EfCarDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            UserManager userManager = new UserManager(new EfUserDal());
 
+            var result = rentalManager.Add(new Rental 
+            {
+                CarId = 5,
+                CustomerId = 2,
+                RentDate = new DateTime(2021, 2, 27),
+              ReturnDate=DateTime.Now
+            });
+            Console.WriteLine(result.Message);
+
+            //UserAddedTest(userManager);
+            //RentalAddedTest(rentalManager);
 
             //Console.WriteLine("Avtomobilin  Id-sini daxil edin");
             //int carId = Convert.ToInt32(Console.ReadLine());
@@ -51,17 +64,41 @@ namespace ConsoleUI
 
         }
 
+        private static void UserAddedTest(UserManager userManager)
+        {
+            var result = userManager.Add(new User
+            {
+                FirstName = "Nemet",
+                LastName = "Nemetli",
+                Email = "Hesimov66@gmail.com",
+                Password = "Hesimov6666"
+            });
+            Console.WriteLine(result.Message);
+        }
+
+        private static void RentalAddedTest(RentalManager rentalManager)
+        {
+            var result = rentalManager.Add(new Rental
+            {
+                CarId = 1,
+                CustomerId = 1,
+                RentDate = new DateTime(2021, 2, 25),
+                ReturnDate = new DateTime(2021, 3, 3)
+            });
+            Console.WriteLine(result.Message);
+        }
+
         private static void GetByClorIdTest(CarManager carManager)
         {
             var result = carManager.GetCarsByColorId(3);
-           
-                foreach (var c in result.Data)
-                {
-                    Console.WriteLine(c.CarId + " " + c.CarDescription + " " + c.DailyPrice);
-                }
-            
-           
-           
+
+            foreach (var c in result.Data)
+            {
+                Console.WriteLine(c.CarId + " " + c.CarDescription + " " + c.DailyPrice);
+            }
+
+
+
         }
 
         private static void ByBrandIdTest(CarManager carManager)
@@ -75,7 +112,7 @@ namespace ConsoleUI
 
         private static void GetByDailyPriceTest(CarManager carManager)
         {
-            var result=carManager.GetbyDailyPrice(40,60);
+            var result = carManager.GetbyDailyPrice(40, 60);
             foreach (var c in result.Data)
             {
                 Console.WriteLine(c.CarId + " " + c.CarDescription + " " + c.DailyPrice);

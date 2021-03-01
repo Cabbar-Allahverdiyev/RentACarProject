@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface IModelService : IEntityRepositoryService<Model>
+    public interface IModelService 
     {
         IDataResult<List<Model>> GetAll();
         IResult Add(Model model);

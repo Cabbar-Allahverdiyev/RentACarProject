@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface ICarService : IEntityRepositoryService<Car>
+    public interface ICarService 
     {
         IDataResult<List<Car>> GetAll();
         IResult Add(Car entity);

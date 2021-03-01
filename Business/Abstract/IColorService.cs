@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface IColorService : IEntityRepositoryService<Color>
+    public interface IColorService
     {
         IDataResult<List<Color>> GetAll();
         IResult Add(Color color);

@@ -47,7 +47,7 @@ namespace Business.Concrete
         {
             
             _modelDal.Update(model);
-            return new SuccessResult(Messages.ModelUptaded);
+            return new SuccessResult(Messages.ModelUpdated);
         }
     }
 }

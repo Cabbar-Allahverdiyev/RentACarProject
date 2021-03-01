@@ -35,7 +35,7 @@ namespace Business.Constants
         public static string BrandsListed = "Markalar siyahiya alindi";
         public static string BrandDeleted = "Marka silindi";
         public static string BrandNotDeleted = "Marka siline bilmedi";
-        public static string BrandUptaded = "Marka  yenilendi";
+        public static string BrandUpdated = "Marka  yenilendi";
         public static string BrandNotUptaded = "Marka yenilene bilmedi";
 
         //Models
@@ -44,7 +44,7 @@ namespace Business.Constants
         public static string ModelsListed = "Modeller siyahiya alindi";
         public static string ModelDeleted = "Model silindi";
         public static string ModelNotDeleted = "Model siline bilmedi";
-        public static string ModelUptaded = "Model  yenilendi";
+        public static string ModelUpdated = "Model  yenilendi";
         public static string ModelNotUptaded = "Model yenilene bilmedi";
 
         //Colors
@@ -53,12 +53,31 @@ namespace Business.Constants
         public static string ColorNameInvalid = "Model adi uygun deyil";
         public static string ColorDeleted = "Reng silindi";
         public static string ColorNotDeleted = "Reng siline bilmedi";
-        public static string ColorUptaded = "Reng  yenilendi";
+        public static string ColorUpdated = "Reng  yenilendi";
         public static string ColorNotUptaded = "Reng yenilene bilmedi";
 
+        //Customer
+        public static string CustomerAdded= "Mustəri əlavə edildi";
+        public static string CustomerDeleted = "Mustəri silindi";
+        public static string CustomerUpdated = "Mustəri yeniləndi";
+        public static string CustomerGetAll= "Mustərilər siralandi";
+
+        //User
+        public static string UserAdded = "Istifadəci əlavə edildi";
+        public static string UserDeleted = "Istifadəci silindi";
+        public static string UserUpdated = "Isifadəci yeniləndi";
+        public static string UserGetAll = "Isifadəcilər siralandi";
+
+        //Rental
+        public static string RentalAdded = "Avtomobil icarəyə goturuldu";
+        public static string RentalNotAdded = "Avtomobil icarəyə goturulə bilmədi";
+        public static string RentalDeleted = "Avtomobil icarəsi legv edildi";
+        public static string RentalUpdated = "Avtomobil icarəsi yenilendi";
+        public static string RentalGetAll = "Avtomobil icarələri siralandi";
 
         //Elave
         public static string MaintenanceTime = "Sistem temirdedir xahis edirik saat 23:00 dan sonra";
-
+        
     }
 }
+//

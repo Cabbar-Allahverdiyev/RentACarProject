@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface IBrandService:IEntityRepositoryService<Brand>
+    public interface IBrandService
     {
         IDataResult<List<Brand>> GetAll();
         IResult Add(Brand brand);
