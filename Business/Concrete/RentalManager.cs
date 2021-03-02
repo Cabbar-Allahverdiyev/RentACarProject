@@ -20,12 +20,16 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            if (!(rental.ReturnDate==null ||  rental.ReturnDate<DateTime.Now))
+            if (rental.RentDate == null || rental.ReturnDate < DateTime.Now)
             {
-                return new  ErrorResult(Messages.RentalNotAdded);
+                _rentaldal.Add(rental);
+                return new SuccessResult(Messages.RentalAdded);
             }
-            _rentaldal.Add(rental);
-            return new SuccessResult(Messages.RentalAdded);
+            else
+            {
+                return new ErrorResult(Messages.RentalNotAdded);
+            }
+
         }
 
         public IResult Delete(Rental rental)
@@ -36,11 +40,12 @@ namespace Business.Concrete
 
         public IDataResult<List<Rental>> GetAll()
         {
-            return new SuccessDataResult<List<Rental>>(_rentaldal.GetAll(),Messages.RentalGetAll);
+            return new SuccessDataResult<List<Rental>>(_rentaldal.GetAll(), Messages.RentalGetAll);
         }
 
         public IResult Update(Rental rental)
         {
+            
             _rentaldal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);
         }

@@ -16,13 +16,13 @@ namespace ConsoleUI
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
             UserManager userManager = new UserManager(new EfUserDal());
 
-            var result = rentalManager.Add(new Rental 
+            var result = rentalManager.Add(new Rental
             {
-                CarId = 5,
+                CarId = 2,
                 CustomerId = 2,
                 RentDate = new DateTime(2021, 2, 27),
-              ReturnDate=DateTime.Now
-            });
+                ReturnDate = new DateTime(2021,2,24)
+            }); 
             Console.WriteLine(result.Message);
 
             //UserAddedTest(userManager);
