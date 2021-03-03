@@ -11,42 +11,37 @@ namespace Business.Concrete
 {
     public class RentalManager : IRentalService
     {
-        IRentalDal _rentaldal;
+        IRentalDal _rentalDal;
 
         public RentalManager(IRentalDal rentaldal)
         {
-            _rentaldal = rentaldal;
+            _rentalDal = rentaldal;
         }
 
         public IResult Add(Rental rental)
         {
-            if (rental.RentDate == null || rental.ReturnDate < DateTime.Now)
-            {
-                _rentaldal.Add(rental);
+           
+                _rentalDal.Add(rental);
                 return new SuccessResult(Messages.RentalAdded);
-            }
-            else
-            {
-                return new ErrorResult(Messages.RentalNotAdded);
-            }
+          
 
         }
 
         public IResult Delete(Rental rental)
         {
-            _rentaldal.Delete(rental);
+            _rentalDal.Delete(rental);
             return new SuccessResult(Messages.RentalDeleted);
         }
 
         public IDataResult<List<Rental>> GetAll()
         {
-            return new SuccessDataResult<List<Rental>>(_rentaldal.GetAll(), Messages.RentalGetAll);
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalGetAll);
         }
 
         public IResult Update(Rental rental)
         {
-            
-            _rentaldal.Update(rental);
+
+            _rentalDal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);
         }
     }

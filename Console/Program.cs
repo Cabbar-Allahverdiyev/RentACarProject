@@ -18,10 +18,10 @@ namespace ConsoleUI
 
             var result = rentalManager.Add(new Rental
             {
-                CarId = 2,
+                CarId = 1,
                 CustomerId = 2,
-                RentDate = new DateTime(2021, 2, 27),
-                ReturnDate = new DateTime(2021,2,24)
+                RentDate = new DateTime(2021, 4,1),
+                ReturnDate = new DateTime(2021,6,3)
             }); 
             Console.WriteLine(result.Message);
 
@@ -112,7 +112,7 @@ namespace ConsoleUI
 
         private static void GetByDailyPriceTest(CarManager carManager)
         {
-            var result = carManager.GetbyDailyPrice(40, 60);
+            var result = carManager.GetByDailyPrice(40, 60);
             foreach (var c in result.Data)
             {
                 Console.WriteLine(c.CarId + " " + c.CarDescription + " " + c.DailyPrice);
@@ -167,7 +167,7 @@ namespace ConsoleUI
 
         private static void DeleteTest(CarManager carManager)
         {
-            carManager.Delete(new Car { CarId = 9 });
+            carManager.Delete(new Car { CarId = 2 });
             Console.WriteLine(Messages.CarDeleted);
         }
 
