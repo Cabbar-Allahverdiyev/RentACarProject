@@ -64,6 +64,11 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarValidator))]
         public IResult Update(IFormFile file, CarImage carImage)
         {
+            IResult result = BusinessRules.Run(CheckIfCarImageLimitExceed(carImage.CarId));
+            if (result!=null)
+            {
+                return new ErrorResult(result.Message);
+            }
             carImage.ImagePath = FileHelper.Update(_carImageDal.Get(c=>c.ImageId==carImage.ImageId).ImagePath,file);
             carImage.Date = DateTime.Now;
             _carImageDal.Update(carImage);
@@ -79,6 +84,27 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.CarImageLimitExceed);
             }
             return new SuccessResult();
+        }
+
+        private IDataResult<List<CarImage>> CheckIfImageNull(int id)
+        {
+            try
+            {
+                string path = @"\Images\logo.jpg";
+                var result = _carImageDal.GetAll(c=>c.CarId==id).Any();
+                if (!result)
+                {
+                    List<CarImage> carImages = new List<CarImage>();
+                    carImages.Add(new CarImage { CarId=id,ImagePath=path,Date=DateTime.Now});
+                    return new SuccessDataResult<List<CarImage>>(carImages);
+                }
+            }
+            catch (Exception exception)
+            {
+
+                return new ErrorDataResult<List<CarImage>>(exception.Message);
+            }
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == id).ToList()) ;
         }
     }
 }
