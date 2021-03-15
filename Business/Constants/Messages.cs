@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants
@@ -27,6 +29,15 @@ namespace Business.Constants
         public static string CarByNotColorId = "Avtomobilleri renge gore siralana bilmedi";
         public static string CarById = "Avtomobil tapildi";
         public static string CarByNotId = "Avtomobil tapila bilmedi";
+
+
+        //Users
+        public static string UserRegistered = "Qeydiyyatdan kecdi";
+        public static string UserNotFound = "Istifadəci tapilmadi";
+        public static string PasswordError = "Şifr xətası";
+        public static string SuccessfulLogin = "Uğurlu giriş";
+        public static string UserAlreadyExists = "İstifadəçi mövcuddur";
+        public static string AccessTokenCreated = "Token yaradıldı";
 
 
         //Brands
@@ -78,6 +89,8 @@ namespace Business.Constants
         //Elave
         public static string MaintenanceTime = "Sistem temirdedir xahis edirik saat 23:00 dan sonra";
         public  static string CarImageLimitExceed="Bir avtomobilde en cox 5 tesvir ola biler";
+        public static string AuthorizationDenied="Səlahiyyətiniz yoxdur";
+       
     }
 }
 //

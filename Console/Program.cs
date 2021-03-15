@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using Business.Constants;
+using Core.Entities.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
@@ -71,7 +72,7 @@ namespace ConsoleUI
                 FirstName = "Nemet",
                 LastName = "Nemetli",
                 Email = "Hesimov66@gmail.com",
-                Password = "Hesimov6666"
+                
             });
             Console.WriteLine(result.Message);
         }
