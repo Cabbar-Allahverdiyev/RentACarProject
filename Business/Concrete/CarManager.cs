@@ -15,20 +15,25 @@ using Core.CrossCuttingConcerns.Validation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.BusinessRules;
 using Business.BusinessAspects.Autofac;
+using Core.Aspects.Autofac.Transaction;
+using Core.Aspects.Autofac.Caching;
 
 namespace Business.Concrete
 {
     public class CarManager : ICarService
     {
         ICarDal _carDal;
-
-        public CarManager(ICarDal carDal)
+        IBrandService _brandService;
+        public CarManager(ICarDal carDal,IBrandService brandService)
         {
             _carDal = carDal;
+            _brandService = brandService;
+
         }
 
         [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car entity)
         {
             IResult result = BusinessRules.Run();
@@ -42,6 +47,15 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarAdded);
         }
 
+
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Car car)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Delete(Car entity)
         {
 
@@ -50,7 +64,7 @@ namespace Business.Concrete
         }
 
 
-
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
 
@@ -63,6 +77,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max), Messages.CarsByDailyPrice);
         }
 
+
+        [CacheAspect]
         public IDataResult<Car> GetById(int carId)
         {
 
@@ -88,6 +104,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId), Messages.CarByColorId);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car entity)
         {
 

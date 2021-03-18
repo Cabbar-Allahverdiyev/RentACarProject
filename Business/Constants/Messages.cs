@@ -39,6 +39,11 @@ namespace Business.Constants
         public static string UserAlreadyExists = "İstifadəçi mövcuddur";
         public static string AccessTokenCreated = "Token yaradıldı";
 
+        public static string UserAdded = "Istifadəci əlavə edildi";
+        public static string UserDeleted = "Istifadəci silindi";
+        public static string UserUpdated = "Isifadəci yeniləndi";
+        public static string UserGetAll = "Isifadəcilər siralandi";
+
 
         //Brands
         public static string BrandAdded = "Marka elave edildi";
@@ -74,10 +79,7 @@ namespace Business.Constants
         public static string CustomerGetAll= "Mustərilər siralandi";
 
         //User
-        public static string UserAdded = "Istifadəci əlavə edildi";
-        public static string UserDeleted = "Istifadəci silindi";
-        public static string UserUpdated = "Isifadəci yeniləndi";
-        public static string UserGetAll = "Isifadəcilər siralandi";
+        
 
         //Rental
         public static string RentalAdded = "Avtomobil icarəyə goturuldu";
