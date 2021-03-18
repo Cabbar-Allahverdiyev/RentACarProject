@@ -92,7 +92,7 @@ namespace Business.Constants
         public static string MaintenanceTime = "Sistem temirdedir xahis edirik saat 23:00 dan sonra";
         public  static string CarImageLimitExceed="Bir avtomobilde en cox 5 tesvir ola biler";
         public static string AuthorizationDenied="Səlahiyyətiniz yoxdur";
-       
+        public  static string GetClaimsIsNull="Əməliyyatin iddəaları yoxdur";
     }
 }
 //

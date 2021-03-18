@@ -49,7 +49,12 @@ namespace Business.Concrete
 
         public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
-            return new SuccessDataResult<List<OperationClaim>>( _userDal.GetClaims(user));
+            var get = _userDal.GetClaims(user);
+            if (get==null)
+            {
+                return new ErrorDataResult<List<OperationClaim>>(Messages.GetClaimsIsNull);
+            }
+            return new SuccessDataResult<List<OperationClaim>>(get);
         }
 
         public IResult Update(User user)
