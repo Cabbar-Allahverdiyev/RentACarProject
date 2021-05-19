@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities;
 using DataAccess.Abstract;
@@ -21,6 +22,7 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
+        [CacheRemoveAspect("IColorService.Get")]
         [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
@@ -30,6 +32,8 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ColorAdded);
         }
 
+
+        [CacheRemoveAspect("IColorService.Get")]
         public IResult Delete(Color color)
         {
            
@@ -38,6 +42,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ColorDeleted);
         }
 
+        [CacheAspect]
         public IDataResult<List<Color>> GetAll()
         {
             
@@ -45,7 +50,8 @@ namespace Business.Concrete
 
         }
 
-
+        [CacheRemoveAspect("IColorService.Get")]
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Update(Color color)
         {
             

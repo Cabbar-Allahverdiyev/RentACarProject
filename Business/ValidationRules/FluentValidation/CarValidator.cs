@@ -3,6 +3,7 @@ using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Business.ValidationRules.FluentValidation
 {
@@ -15,6 +16,7 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(c => c.DailyPrice).NotEmpty();
             RuleFor(c => c.DailyPrice).GreaterThan(0);
             RuleFor(c => c.DailyPrice).GreaterThanOrEqualTo(10).When(c=>c.BrandId==1);
+            RuleFor(c => c.ModelYear).NotEmpty();
             //RuleFor(c => c.CarDescription).Must(StartWithA).WithMessage("Aciqlama A-ile baslamaidir");
         }
 
@@ -22,5 +24,7 @@ namespace Business.ValidationRules.FluentValidation
         {
             return arg.StartsWith("A");
         }
+
+       
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -29,7 +30,13 @@ namespace Business.Constants
         public static string CarByNotColorId = "Avtomobilleri renge gore siralana bilmedi";
         public static string CarById = "Avtomobil tapildi";
         public static string CarByNotId = "Avtomobil tapila bilmedi";
-
+        public static string GetCarsDetailByBrandIdListed="Seçilən markaya gorə avtomobillər siyahıya alındı";
+        public static string NoCarsOfTheSelectedBrandFound="Seçilən markaya görə avtomobil tapılmadı";
+        public static string NoCarsOfTheSelectedColorFound = "Seçilən rəngə görə avtomobil tapılmadı";
+        public static string GetCarsDetailByColorIdListed = "Seçilən rəngə gorə avtomobillər siyahıya alındı";
+        public static string ModelYearInvalid = "Avtomobilin istehsal ili 4 reqemli olmalidir";
+        public static string GetCarDetailByColorNameListed = "Avtomobillər rənglərin adlarına görə sıralandı";
+        public static string CarDetailByColorNameandBrandNameListed = "Avtomobillər rənglərin adlarına və markaların adlarına görə sıralandı"; 
 
         //Users
         public static string UserRegistered = "Qeydiyyatdan kecdi";
@@ -93,6 +100,11 @@ namespace Business.Constants
         public  static string CarImageLimitExceed="Bir avtomobilde en cox 5 tesvir ola biler";
         public static string AuthorizationDenied="Səlahiyyətiniz yoxdur";
         public  static string GetClaimsIsNull="Əməliyyatin iddəaları yoxdur";
+        public static string GetRentalDetailListed ="Kirayə avtomobillər əlavə məlumatlara görə sıralandı";
+       
+        public static string CustomerDetailListed= "Müştərilər əlavə məəlumatlara görə sıralandı";
+       
+       
     }
 }
 //

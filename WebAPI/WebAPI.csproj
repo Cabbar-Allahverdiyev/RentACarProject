@@ -16,5 +16,15 @@
     <ProjectReference Include="..\Entities\Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Wwwroot\Images\0d1e7471-8954-4347-a070-c6d76d76c493.jpg" />
+    <None Include="Wwwroot\Images\0e55317e-402d-4e96-ba26-f6e69fc85189.jpg" />
+    <None Include="Wwwroot\Images\83f2aca3-87fa-41db-8699-ef4b02093fd2.jpg" />
+    <None Include="Wwwroot\Images\b3947434-7540-4c14-b835-7b6ab4ca1768.png" />
+    <None Include="Wwwroot\Images\Default.jpg" />
+    <None Include="Wwwroot\Images\ef96102a-34a2-40f9-bb64-fcbaa5d82dce.jpg" />
+    <None Include="Wwwroot\Images\fd934846-35eb-4c8d-829c-1b352b7e8718.jpg" />
+  </ItemGroup>
+
 
 </Project>

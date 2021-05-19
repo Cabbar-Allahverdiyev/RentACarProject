@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities;
 using DataAccess.Abstract;
@@ -21,6 +22,7 @@ namespace Business.Concrete
             _modelDal = modelDal;
         }
 
+        [CacheRemoveAspect("IModelService.Get")]
         [ValidationAspect(typeof(ModelValidator))]
         public IResult Add(Model model)
         {
@@ -30,6 +32,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ModelAdded);
         }
 
+        [CacheRemoveAspect("IModelService.Get")]
         public IResult Delete(Model model)
         {
             
@@ -38,6 +41,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ModelDeleted);
         }
 
+        [CacheAspect]
         public IDataResult<List<Model>> GetAll()
         {
             
@@ -46,6 +50,8 @@ namespace Business.Concrete
         }
 
 
+        [CacheRemoveAspect("IModelService.Get")]
+        [ValidationAspect(typeof(ModelValidator))]
         public IResult Update(Model model)
         {
             

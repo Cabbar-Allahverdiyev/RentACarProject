@@ -9,7 +9,7 @@ using System.Text;
 
 namespace DataAccess.Concrete.InMemory
 {
-    public class InMemoryCarDal : ICarDal
+    public class InMemoryCarDal //: ICarDal
     {
         List<Car> _cars;
         public InMemoryCarDal()
@@ -54,7 +54,7 @@ namespace DataAccess.Concrete.InMemory
             return _cars.Where(c=>c.BrandId==brandId).ToList();
         }
 
-        public List<CarDetailDto> GetCarDetail()
+        public List<CarDetailDto> GetCarDetail(Expression<Func<CarDetailDto,bool>> filter=null)
         {
             throw new NotImplementedException();
         }

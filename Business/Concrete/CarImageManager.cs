@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Core.Aspects.Autofac.Caching;
+using System.IO;
 
 namespace Business.Concrete
 {
@@ -23,6 +25,7 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
         }
 
+        [CacheRemoveAspect("ICarImageService.Get")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(IFormFile file, CarImage carImage)
         {
@@ -37,7 +40,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Delete(CarImage carImage)
         {
             FileHelper.Delete(carImage.ImagePath);
@@ -45,22 +48,27 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetAll()
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
         }
 
+
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetByCarId(int id)
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c=>c.CarId==id));
         }
 
-
+        [CacheAspect]
         public IDataResult<CarImage> GetById(int id)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(c=>c.ImageId==id));
         }
 
+        [CacheRemoveAspect("ICarImageService.Get")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Update(IFormFile file, CarImage carImage)
         {
@@ -69,7 +77,10 @@ namespace Business.Concrete
             {
                 return new ErrorResult(result.Message);
             }
-            carImage.ImagePath = FileHelper.Update(_carImageDal.Get(c=>c.ImageId==carImage.ImageId).ImagePath,file);
+
+            var oldPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\Wwwroot"))+_carImageDal.Get(p=>p.ImageId==carImage.ImageId).ImagePath;
+
+            carImage.ImagePath = FileHelper.Update(oldPath,file);
             carImage.Date = DateTime.Now;
             _carImageDal.Update(carImage);
             return new  SuccessResult();
@@ -90,7 +101,7 @@ namespace Business.Concrete
         {
             try
             {
-                string path = @"\Images\logo.jpg";
+                string path = @"\Images\Default.jpg";
                 var result = _carImageDal.GetAll(c=>c.CarId==id).Any();
                 if (!result)
                 {
